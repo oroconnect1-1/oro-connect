@@ -1,0 +1,39 @@
+{
+	"motd": {
+		"cloudBuildErrorAfter": 1594252800000,
+		"cloudBuildWarnAfter": 1590019200000,
+		"defaultNode10After": 1594252800000,
+		"minVersion": "3.0.5",
+		"node8DeploysDisabledAfter": 1613390400000,
+		"node8RuntimeDisabledAfter": 1615809600000,
+		"node8WarnAfter": 1600128000000,
+		"fetched": 1775158100278
+	},
+	"gemini": false,
+	"usage": true,
+	"analytics-uuid": "e4ad83ff-194f-43bb-b7ba-d6341c88f4ba",
+	"user": {
+		"iss": "accounts.google.com",
+		"azp": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+		"aud": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+		"sub": "108510025330503396284",
+		"email": "oroconnect1@gmail.com",
+		"email_verified": true,
+		"at_hash": "yMA2WYQUcChSUAtSKP1eLg",
+		"iat": 1775158312,
+		"exp": 1775161912
+	},
+	"tokens": {
+		"expires_at": 1775169862787,
+		"refresh_token": "1//031u0P0u4dFYECgYIARAAGAMSNwF-L9Irb2-CSIVdhz-AboupnPODP6s8tpw1i_D2Ky1PsHQNkNLNYHmc_5QOSZSmcpSX1fsmuKk",
+		"scopes": [],
+		"access_token": "ya29.a0Aa7MYiptZnPeUdTRUhnA71f6bOCCuWNGGg_GRXhvHhh7VOE6KOxiUAXxs0f6NikHhEna0scigjEJmq8G_uA726igfeV2yBGDxB1UId4cNftkqjhUCcJA9pFLy8T7qn32Q9oVApxkixvJS58SYiGEEiM2jfgu7aDPObUblsxLdNNjJ5fD4QG5dMwnGNhZy27o6uxGb4qe4btKaCgYKAd0SARYSFQHGX2Mi33kEqfXYFKiaR1aFz-B0RA0211",
+		"expires_in": 3599,
+		"scope": "https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email openid",
+		"token_type": "Bearer",
+		"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImNjZTRlMDI0YTUxYWEwYzFjNDFjMWE0NTE1YTQxZGQ3ZTk2MTkzNmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA4NTEwMDI1MzMwNTAzMzk2Mjg0IiwiZW1haWwiOiJvcm9jb25uZWN0MUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImNNRkNZYUlpWV8zX3dxZnZ3TzhDM3ciLCJpYXQiOjE3NzUxNjYyNjMsImV4cCI6MTc3NTE2OTg2M30.rgkyfdyCXngR2affID2FwrfoWEtkgvepG9vAUq_DC0dtbR22j2HkMpjxlHlWUGn9z9iYwWzuiXEQH9_SBBLdw2an04a7EE2d5GdE2iP4RVdB4mghz0tubSF_WYswtJaiiK6q3OIz_PFs5HPzFek4_5bOKJO8pbhdUIAVg6pozXxnTB7bDdK98HIOLB0C9GD4V5kJ3Syw5tWyt6jij-zPNT5pDTe0KE-Tj9k7UuFD5fvEuvLVXHcisUUjTtt-PfPxu3CrRD0DpmTnpgHgStQuLEFVx7FAMHpx9i36njgr2ohOBG5Fu94axiDvjb8mACg1RUb227BwigCJLl-Fh3TFoA"
+	},
+	"activeProjects": {
+		"/data/data/com.termux/files/home/ORO-CONNECT": "oro-connect-1"
+	}
+}

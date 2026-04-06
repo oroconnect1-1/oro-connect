@@ -1,0 +1,26 @@
+name: Build Android APK
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Build APK
+        run: |
+          bubblewrap build --skipIntermediateStep
+        env:
+          BUBBLEWRAP_JDK_PATH: /usr/lib/jvm/java-17-openjdk-amd64
+          BUBBLEWRAP_ANDROID_SDK_PATH: /usr/lib/android-sdk
+
