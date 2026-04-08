@@ -1,4 +1,0 @@
-"scripts": {
-  "build": "mkdir -p www && cp Public/Index.html www/index.html && cp Public/manifest.json www/ && cp Public/sw.js www/",
-  "test": "echo \"Error: no test specified\" && exit 1"
-}
