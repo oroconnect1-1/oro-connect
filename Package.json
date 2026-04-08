@@ -1,5 +1,21 @@
-"scripts": {
-  "build": "mkdir -p www && cp Public/Index.html www/index.html && cp Public/manifest.json www/ && cp Public/sw.js www/",
-  "test": "echo \"Error: no test specified\" && exit 1"
+{
+  "name": "oro-connect",
+  "version": "1.0.0",
+  "description": "Social Media Platform",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p www && cp index.html www/ && cp -r public/* www/ 2>/dev/null || true",
+    "cap:copy": "npx cap copy",
+    "cap:sync": "npx cap sync",
+    "android:open": "npx cap open android"
+  },
+  "keywords": [],
+  "author": "Abduletif Geleto",
+  "license": "ISC",
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/cli": "^6.0.0"
+  }
 }
-
