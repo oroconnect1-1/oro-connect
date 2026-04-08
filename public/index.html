@@ -52,7 +52,7 @@
 .odaa-icon:hover {
     transform: rotateY(360deg) scale(1.1); 
 }
-        .app-title { font-size: 3.5rem; font-weight: 800; margin-top: 15px; }
+        .app-title { font-size: 2.1rem; font-weight: 800; margin-top: 10px; }
         .green { color: var(--o-green); } .red { color: var(--o-white); }
         /* Form Styling */
         .form-container { background: white; padding: 40px; border-radius: 25px; width: 95%; max-width: 550px; box-shadow: var(--shadow); color: #333; }
@@ -62,11 +62,11 @@
         /* Dashboard Layout */
         #home-page.active { display: flex; flex-direction: row; }
         
-        .sidebar { width: 70px; background: #000; height: 100vh; position: fixed; padding:15px; color: white; display: flex; flex-direction: column; z-index: 1000; transition: 0.3s; left: 0;
+        .sidebar { width: 150px; background: #000; height: 100vh; position: fixed; padding:10px; color: white; display: flex; flex-direction: column; z-index: 1000; transition: 0.3s; left: 0;
     top: 0; }
         .main-content { margin-left: 70px; flex: 1; padding: 20px 40px; width: calc(100% - 70px); max-width: 1100px; transition: 0.3s;}
         
-        .nav-item { padding: 15px 10px; color: white; text-decoration: none; border-radius: 10px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+        .nav-item { padding: 12px 5px; color: white; text-decoration: none; border-radius: 10px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; }
         .nav-item:hover, .nav-item.active { background: var(--o-red);width: 70%; }
 
         /* Cards */
@@ -92,16 +92,13 @@
 }
 .clickable-user { cursor: pointer; color: var(--o-blue); transition: 0.2s; }
 .clickable-user:hover { text-decoration: underline; }
-/* --- SETTINGS TABS STYLING --- */
 .settings-content {
     display: none;
 }
-/* Yommuu active ta'u qofa akka mul'atu godhi */
 .settings-content.active {
     display: block;
     animation: fadeIn 0.4s ease;
 }
-/* Button tabs halluu isaanii sirreessuuf */
 .tab-btn {
     padding: 10px 20px;
     border: none;
@@ -112,7 +109,6 @@
     transition: 0.3s;
     font-size: 1rem;
 }
-/* Yommuu cuqaasame halluu Odaa (Diimaa) akka uffatu */
 .tab-btn.active {
     background: var(--o-red);
     color: white;
@@ -129,18 +125,16 @@
     position: absolute;
     right: 15px;
     top: 50%;
-    transform: translateY(-80%); /* Iddoo input gidduu akka ta'uuf */
+    transform: translateY(-80%);
     cursor: pointer;
     font-size: 1.2rem;
     color: #666;
 }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); width: 200px; }
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0;width: 100%;}
-            #mobile-nav { display: flex !important; background: #000; color: white; padding: 15px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1001;}
+            #mobile-nav { display: flex !important; background: #000; color: white; padding: 10px; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1001;}
         }
 
         .page-section { display: none; }
@@ -150,7 +144,6 @@
         .msg { margin-bottom: 10px; padding: 10px; border-radius: 15px; max-width: 80%; }
         .msg.sent { background: var(--o-green); color: white; align-self: flex-end; }
         .msg.received { background: #eee; align-self: flex-start; }
-        /* Iddoo: <style> dhumarratti */
 #preview-container {
     display: none;
     position: relative;
@@ -193,7 +186,20 @@
           transform: rotate(360deg);
         }
       }
-/* Skeleton Loader Style */
+.follow-btn {
+    padding: 6px 12px;
+    border-radius: 10px;
+    border: 2px solid #00b894;
+    background: white;
+    color: #00b894;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.follow-btn.following {
+    background: #00b894 !important;
+    color: white !important;
+}
 .skeleton {
     background: #e0e0e0;
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -215,7 +221,7 @@
 <body>
 <div id="sidebar-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="toggleSidebar()"></div>
     <div id="mobile-nav" style="display:none;">
-        <span style="font-weight:800;font-size: 2.5rem;">ORO-CONNECT</span>
+        <span style="font-weight:800;font-size: 1.5rem;">ORO-CONNECT</span>
         <button onclick="toggleSidebar()" style="background:none; border:none; color:cyan; font-size:32px;">☰</button>
     </div>
 
@@ -260,7 +266,7 @@
 
     <div id="home-page" class="page">
 <div class="sidebar">
-    <h2 style="margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">ORO-CONNECT</h2>
+    <h2 style="margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;font-size: 0.9rem;">ORO-CONNECT</h2>
     <div class="nav-item active" onclick="switchSection('home', event)">🏠 Home</div>
     <div class="nav-item" onclick="switchSection('explore', event)">🔍 <span>Explore</span></div>
     <div class="nav-item" onclick="switchSection('users', event)">👥 <span>Users</span></div>
@@ -269,7 +275,7 @@
     <div class="nav-item" onclick="switchSection('calls', event)">📞 <span>Calls</span></div>
     <div class="nav-item" onclick="switchSection('profile', event)">👤 Profile</div>
     <div class="nav-item" onclick="switchSection('settings', event)">⚙️ SETTINGS</div>
-    <div class="nav-item" onclick="handleLogout()" style="margin-top: auto; color: #ff9999;">🚪 <span>Ba'i</span></div>
+    <div class="nav-item" onclick="handleLogout()" style="color: #ff9999; margin-top: 15px; border-top: 1px solid #222; padding-top: 10px;">🚪 <span>Ba'i</span></div>
 </div>
 
         <div class="main-content">
@@ -317,10 +323,19 @@
         <p style="font-size: 0.9rem; color: gray; margin-bottom: 10px;">Namoota haaraa hordofaa, walitti dhufeenya uumaa.</p>
         <hr>
         <div id="all-users-list">
-            <p style="text-align:center; padding:20px;">Namoota barbaadaa jira...</p>
-        </div>
-    </div>
-</div>
+            <div class="card" style="display: flex; align-items: center; justify-content: space-between; border-top: none; border-bottom: 1px solid #eee;">
+     <div style="display: flex; align-items: center; gap: 10px;">
+         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" style="width: 40px; height: 40px; border-radius: 50%;">
+         <div>
+             <b style="font-size: 0.9rem;">Obbo Alamaayyoo</b><br>
+             <small style="color: gray;">@alamayyoo</small>
+         </div>
+     </div>
+     <button class="follow-btn" onclick="toggleFollow(this)" style="padding: 5px 15px; border-radius: 20px; border: 2px solid var(--o-green); background: white; color: var(--o-green); font-weight: bold; cursor: pointer;">Hordof (Follow)</button>
+ </div>
+ </div>
+ </div>
+ </div>
 
 <div id="messages-section" class="page-section">
     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px; height: 80vh;">
@@ -577,13 +592,19 @@
 <div id="profile-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeProfileModal()">&times;</span>
-        <img id="view-user-pic" src="" class="profile-view-img">
-        <h2 id="view-user-name"></h2>
-        <p id="view-user-email"></p>
-        <p>Postiiwwan: <span id="view-user-posts">0</span></p>
-        <button id="msg-from-profile" class="btn-main">Ergaa Ergi</button>
-    </div>
-</div>
+        <img id="view-user-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="profile-view-img">
+        <h2 id="view-user-name">Maqaa Namaa</h2>
+        <p id="view-user-email" style="color: gray; font-size: 0.9rem;"></p>
+        
+        <div style="display: flex; justify-content: space-around; margin: 20px 0; border-top: 1px solid #eee; padding-top: 15px;">
+            <div><b id="view-user-posts">0</b><br><small>Posts</small></div>
+            <div><b id="view-user-followers">0</b><br><small>Followers</small></div>
+            <div><b id="view-user-following">0</b><br><small>Following</small></div>
+        </div>
+        
+        <button id="msg-from-profile" class="btn-main" style="background: var(--o-blue);">Ergaa Ergi</button>
+        </div>
+        </div>
 
 <div id="privacy-modal" class="modal">
     <div class="modal-content">
@@ -627,7 +648,6 @@
 GALATOOMAA!</p>
     </div>
 </div>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { 
@@ -637,7 +657,7 @@ GALATOOMAA!</p>
     } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { 
         getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
-        onAuthStateChanged, signOut, updateProfile
+        onAuthStateChanged, signOut, updateProfile, updatePassword, sendPasswordResetEmail
     } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
     import { 
         getStorage, ref, uploadBytesResumable, getDownloadURL, uploadBytes 
@@ -723,18 +743,14 @@ const i18n_data = {
         comments: "አስተያየቶች"
     }
 };
-// 1. Dhimma Afaanii hunda walitti fiduu
+
 window.AppLanguageManager = {
-    // Afaanoota jiran fi ragaa isaanii
     apply: (lang) => {
         const t = i18n_data[lang];
         if (!t) return;
-
-        // Attribute-oota hunda scan gochuu (data-i18n fi placeholder)
         document.querySelectorAll("[data-i18n]").forEach(el => {
             const key = el.getAttribute("data-i18n");
             if (t[key]) {
-                // 'nav-item' yoo ta'e HTML, yoo hin taane text qofa
                 el.classList.contains('nav-item') ? el.innerHTML = t[key] : el.textContent = t[key];
             }
         });
@@ -744,7 +760,6 @@ window.AppLanguageManager = {
             if (t[key]) el.placeholder = t[key];
         });
 
-        // Elementoota dhuunfaa (IDs)
         const selectors = {
             '#welcome-page p': t.welcome,
             '#post-btn span': t.post_btn
@@ -754,27 +769,20 @@ window.AppLanguageManager = {
             const el = document.querySelector(selector);
             if (el && value) el.innerText = value;
         });
-
-        // State ol-kaa'uu
         localStorage.setItem("appLanguage", lang);
         document.documentElement.lang = lang;
         console.log(lang === "en" ? "Language: English" : "Afaan: Oromoo");
     },
-
-    // Jijjiirraa (Change event)
     change: () => {
-        const selectElement = document.querySelector('select.lang-selector'); // 'Class' fayyadamuun filatamaadha
+        const selectElement = document.querySelector('select.lang-selector');
         if (selectElement) {
             const selectedLang = selectElement.value;
             window.AppLanguageManager.apply(selectedLang);
-            
-            // Beeksisa gabaabaa
             const msg = selectedLang === "en" ? "Switching to English..." : "Gara Afaan Oromootti jijjiiramaa jira...";
             console.log(msg); 
         }
     }
 };
-// 2. DOMContentLoaded: Yeroo app-n banamu
 document.addEventListener("DOMContentLoaded", () => {
     const savedLang = localStorage.getItem("appLanguage") || "om";
     const selectElement = document.querySelector('select.lang-selector');
@@ -800,7 +808,6 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
         let q;
         if (!lastVisible) {
-            // Yeroo jalqabaaf (Initial Load)
             q = query(
                 collection(db, "posts"), 
                 orderBy("createdAt", "desc"), 
@@ -833,7 +840,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         } else {
-            // 5. Yoo data dhumate
             lastVisible = null;
             if (!document.getElementById('end-msg')) {
                 const endMsg = document.createElement('p');
@@ -880,7 +886,57 @@ const stopRecording = () => {
     const target = document.getElementById(id);
     if (target) target.classList.add('active');
 };
+window.loadUsers = async () => { 
+    const userList = document.getElementById('all-users-list');
+    if(!userList) return;
+    
+    userList.innerHTML = "<p style='text-align:center; padding:15px;'>Hawaasa fidaa jira... ⏳</p>";
 
+    try {
+        const q = query(collection(db, "users"));
+        const snap = await getDocs(q);
+        userList.innerHTML = "";
+
+        if (snap.empty) {
+            userList.innerHTML = "<p style='text-align:center;'>Namni biraa hin argamne.</p>";
+            return;
+        }
+
+        snap.forEach(d => {
+            const u = d.data();
+            const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+
+            if(u.uid !== currentUserId) {
+                const realName = u.name || u.displayName || "Fayyadamaa";
+                const realPhoto = u.photo || u.photoURL || 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+            const realUid = u.uid || d.id;
+             let followersData = Array.isArray(u.followers) ? u.followers : [];
+            const followersArray = Array.isArray(u.followers) ? u.followers : [];
+            const isFollowing = currentUserId && followersData.includes(currentUserId);
+                const btnText = isFollowing ? "Hordofaa Jirta" : "Hordof (Follow)";
+                const btnClass = isFollowing ? "follow-btn following" : "follow-btn";
+
+                userList.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid #eee; background:white;">
+                        <div style="display:flex; align-items:center; gap:12px; cursor:pointer; flex:1;" onclick="openUserProfile('${realUid}')">
+                            <img src="${realPhoto}" style="width:48px; height:48px; border-radius:50%; border:2px solid #00b894; object-fit:cover;">
+                            <div>
+                                <b style="display:block; font-size:1rem; color:#333;">${realName}</b>
+                                <small style="color:gray; font-size:0.75rem;">Profile ilaali</small>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                             <button class="${btnClass}" onclick="toggleFollow('${realUid}', this)" style="padding:6px 12px; border-radius:20px; border:1px solid #00b894; background:${isFollowing ? '#00b894' : 'white'}; color:${isFollowing ? 'white' : '#00b894'}; font-weight:bold; cursor:pointer; font-size:0.75rem;">${btnText}</button>
+                             <button onclick="startChat('${realUid}', '${realName}', '${realPhoto}')" style="padding:7px 14px; background:#0e8140; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size:0.8rem;">Chat</button>
+                        </div>
+                    </div>`;
+            }
+        });
+    } catch (err) {
+        console.error("Users list error:", err);
+        userList.innerHTML = "<p style='color:red; text-align:center;'>Dogoggora uumame: " + err.message + "</p>";
+    }
+};
     window.switchSection = (id, e) => {
          if (e) e.preventDefault();
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
@@ -946,9 +1002,7 @@ document.addEventListener('click', (e) => {
 
     const user = auth.currentUser;
     try {
-        // Firestore irraa data isaa balleessi
         await deleteDoc(doc(db, "users", user.uid));
-        // Auth irraa balleessi
         await user.delete();
         alert("Account keessan balleeffameera. Natti toleera!");
         window.location.reload();
@@ -956,7 +1010,6 @@ document.addEventListener('click', (e) => {
         alert("Dogoggora: Dura 'Logout' gootanii deebitanii 'Login' gochuun account haquuf dirqama.");
     }
 };
-    // --- 2. AUTHENTICATION (Cimaa) ---
         window.handleSignUp = async () => {
         const name = document.getElementById('reg-name').value;
         const email = document.getElementById('reg-email').value;
@@ -965,11 +1018,7 @@ document.addEventListener('click', (e) => {
         try {
             const res = await createUserWithEmailAndPassword(auth, email, pass);
             const user = res.user;
-            
-            // Profile isaa update gochuu
             await updateProfile(user, { displayName: name });
-
-            // Firestore irratti data isaa kuusuu
             await setDoc(doc(db, "users", user.uid), {
                 name,
                 email,
@@ -977,8 +1026,6 @@ document.addEventListener('click', (e) => {
                 photo: "",
                 createdAt: serverTimestamp()
             });
-
-            // Email verification dhiifneera, kallattiin gara home-page deema
             alert("Baga nagaan dhuftan, herreggi keessan uumameera!");
             showPage('home-page'); 
 
@@ -987,15 +1034,37 @@ document.addEventListener('click', (e) => {
             alert("Dogoggora: " + err.message);
         }
     };
+async function openUserProfile(userId) {
+    const modal = document.getElementById('profile-modal');
+    
+    try {
+        const userDoc = await getDoc(doc(db, "users", uid));
+        
+        if (userDoc.exists) {
+            const data = userDoc.data();
+            document.getElementById('view-user-name').innerText = data.displayName || "Fayyadamaa ORO";
+            document.getElementById('view-user-email').innerText = data.email || "";
+            document.getElementById('view-user-pic').src = data.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            document.getElementById('view-user-followers').innerText = data.followersCount || 0;
+            document.getElementById('view-user-following').innerText = data.followingCount || 0;
+            const postsSnapshot = await db.collection("posts").where("authorId", "==", userId).get();
+            document.getElementById('view-user-posts').innerText = postsSnapshot.size;
+            modal.style.display = "flex";
+        }
+    } catch (error) {
+        console.error("Ragaa fiduun hin danda'amne:", error);
+    }
+}
 
+function closeProfileModal() {
+    document.getElementById('profile-modal').style.display = "none";
+}
         window.handleLogin = async () => {
         const email = document.getElementById('login-email').value;
         const pass = document.getElementById('login-pass').value;
         try {
-            const res = await signInWithEmailAndPassword(auth, email, pass);
-            const user = res.user;
+            const res = await signInWithEmailAndPassword(auth, email, pass);            const user = res.user;
 
-            // Email mirkanaa'uun isaa asitti hin barbaachisu
             console.log("Galiinsi milkaa'eera!");
             showPage('home-page');
 
@@ -1016,7 +1085,6 @@ window.handleForgotPassword = async () => {
         alert("Dogoggora: " + err.message);
     }
 };
-
     window.handleLogout = () => signOut(auth);
     onAuthStateChanged(auth, (user) => {
         if(user) {
@@ -1025,8 +1093,6 @@ window.handleForgotPassword = async () => {
         const emailEl = document.getElementById('user-display-email');
         if (nameEl) nameEl.innerText = user.displayName || "Fayyadamaa";
         if (emailEl) emailEl.innerText = user.email;
-        
-        // Suuraa profayilii haaromsuu
         const profPics = ['user-prof-pic', 'my-prof-pic', 'profile-img'];
         profPics.forEach(id => {
             const el = document.getElementById(id);
@@ -1048,7 +1114,6 @@ window.handleForgotPassword = async () => {
         iconEl.innerText = "💡";
     }
 };
-
     window.previewMedia = (event) => {
     const file = event.target.files[0];
     const previewCont = document.getElementById('preview-container');
@@ -1084,7 +1149,6 @@ window.handleForgotPassword = async () => {
             };
         });
     };
-// Iddoo: handlePost() dura
 document.getElementById('media-upload').onchange = (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image')) {
@@ -1141,7 +1205,6 @@ async function saveToFirestore(text, mediaUrl, type, thumbnailUrl = "") {
         throw new Error("Data kuusuun hin danda'amne: " + err.message);
     }
 }
-// --- 2. UI DEEBISANII QULQULLEESSUU (Helper) ---
 function resetUploadUI() {
     const btn = document.getElementById('post-btn');
     const loader = document.getElementById('btn-loader');
@@ -1160,7 +1223,7 @@ function resetUploadUI() {
     document.getElementById('post-text').value = "";
     document.getElementById('media-upload').value = "";
 }
-// --- 3. FUNKSYINII OL-GAA'IINSA (MAIN HANDLE POST)
+
 window.handlePost = async () => {
     const text = document.getElementById('post-text').value;
     const fileInput = document.getElementById('media-upload');
@@ -1185,7 +1248,6 @@ window.handlePost = async () => {
         let finalType = file ? file.type : "text";
 
         if (file) {
-            // VALIDATION
             if (finalType.includes('video')) {
                 if (file.size > 15 * 1024 * 1024) throw new Error("Viidiyoon 15MB ol ta'uu hin qabu!");
                 if (typeof validateVideoDuration === "function") await validateVideoDuration(file);
@@ -1193,7 +1255,6 @@ window.handlePost = async () => {
             if (finalType.includes('image') && typeof compressImage === "function") {
                 file = await compressImage(file);
             }
-            // MEDIA UPLOAD (RESUMABLE)
             const sRef = ref(storage, `posts/${Date.now()}_${auth.currentUser.uid}`);
             currentUploadTask = uploadBytesResumable(sRef, file);
 
@@ -1214,10 +1275,7 @@ window.handlePost = async () => {
                     resetUploadUI();
                 },
                 async () => {
-                    // Media fe'amee xumurame
                     mediaUrl = await getDownloadURL(currentUploadTask.snapshot.ref);
-
-                    // THUMBNAIL (Yoo Viidiyoo ta'e)
                     if (finalType.includes('video') && typeof generateVideoThumbnail === "function") {
                         if (progressText) progressText.innerText = "Thumbnail uumamaa jira...";
                         try {
@@ -1229,14 +1287,12 @@ window.handlePost = async () => {
                             console.error("Thumbnail error:", thumbErr);
                         }
                     }
-                    // Firestore irratti kuusuu
                     await saveToFirestore(text, mediaUrl, finalType, thumbnailUrl);
                     alert("Milkaa'inaan maxxanfameera!");
                     resetUploadUI();
                 }
             );
         } else {
-            // TEXT ONLY
             await saveToFirestore(text, "", "text", "");
             alert("Maxxanfameera!");
             resetUploadUI();
@@ -1246,14 +1302,12 @@ window.handlePost = async () => {
         resetUploadUI();
     }
 };
-// 6. Fe'iinsa dhaabuuf (Cancel)
 window.cancelMyUpload = () => {
     if (currentUploadTask) {
         currentUploadTask.cancel();
         resetUploadUI();
     }
 };
-// --- 1. FEED FECH GOCHUU (LOAD FEED) ---
     window.loadFeed = function() {
     const cont = document.getElementById('feed-container');
     if(!cont) return;
@@ -1262,12 +1316,9 @@ window.cancelMyUpload = () => {
     <div class="post-card"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-img"></div></div>
 `;
     cont.innerHTML = "<p style='text-align:center;'>Postiiwwan fidaa jira...</p>";
-    // Query uumuu
               try {
-                  // Query postiiwwanii fi beeksisaa
                   const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(10));
                   const adsQuery = query(collection(db, "ads"), limit(3));
-                  // Real-time listener fayyadamna
                   onSnapshot(postsQuery, async (postsSnap) => {
                       const adsSnap = await getDocs(adsQuery);
 
@@ -1281,7 +1332,6 @@ window.cancelMyUpload = () => {
                       postsSnap.forEach(d => {
                           posts.push({id: d.id, ...d.data(), isAd: false});
                       });
-                      // Postii 3 booda Ad (Beeksisa) 1
                       let mixedFeed = [];
                       posts.forEach((p, i) => {
                           mixedFeed.push(p);
@@ -1289,7 +1339,6 @@ window.cancelMyUpload = () => {
                               mixedFeed.push(ads.shift());
                           }
                       });
-                      // Render gochuu
                       renderMixedFeed(mixedFeed, cont);
                   });
               } catch (err) {
@@ -1297,7 +1346,6 @@ window.cancelMyUpload = () => {
     cont.innerHTML = "<p>Dogoggora barbaaduu irratti uumame.</p>";
 }
           };
-          // --- 2. RENDER FUNCTION (ADS, POSTS,
     window.renderMixedFeed = function(newPosts, cont) {
     const currentUser = auth.currentUser;
     let finalHTML = ""; 
@@ -1309,7 +1357,6 @@ window.cancelMyUpload = () => {
     newPosts.forEach(p => {
         const postId = p.id;
         if (p.isAd) {
-            // --- KUTAA BEEKSISAA (ADS) ---
             finalHTML += `
                 <div class="post-card" style="border-left: 8px solid var(--o-red, #ff4d4d); background: #fff9f9; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1322,9 +1369,7 @@ window.cancelMyUpload = () => {
                     <button onclick="window.open('${p.link}', '_blank')" class="btn-main" style="width:100%; padding:12px; background:var(--o-black, #333); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Dabalata Barbaadi</button>
                 </div>`;
         } else {
-            // --- KUTAA POSTII IDILEE (NORMAL POST) 
             const isOwner = currentUser && p.userId === currentUser.uid;
-            // 1. Media (Suuraa ykn Viidiyoo) adda b
             let mediaHTML = "";
             if (p.mediaUrl) {
                 if (p.mediaType && p.mediaType.includes('video')) {
@@ -1333,7 +1378,6 @@ window.cancelMyUpload = () => {
                     mediaHTML = `<img src="${p.mediaUrl}"loading="lazy" style="width:100%; border-radius:12px; margin-top:10px; cursor:pointer; max-height:500px; object-fit:cover;" onclick="window.open('${p.mediaUrl}')">`;
                 }
             }
-            // 2. Yaada (Comments) qindeessuu
             let commentsHTML = "";
             if (p.comments && p.comments.length > 0) {
                 p.comments.forEach((c, index) => {
@@ -1350,7 +1394,6 @@ window.cancelMyUpload = () => {
             } else {
                 commentsHTML = `<p id="no-comment-${postId}" style="color:gray; font-size:0.8rem; text-align:center; margin-top:10px;">Yaanni hin jiru. Jalqabaa ta'i!</p>`;
             }
-            // 3. HTML Postii Guutuu
             finalHTML += `
                 <div class="post-card" id="post-${postId}" style="background:#fff; border: 1px solid #eee; border-radius:15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -1603,44 +1646,42 @@ window.loadComments = (postId) => {
             });
     });
 }
-    window.openUserProfile = async (uid) => {
-    const { getDoc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
-    const userSnap = await getDoc(doc(db, "users", uid));
-    if (userSnap.exists()) {
-        const u = userSnap.data();
-        document.getElementById('view-user-pic').src = u.photo || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-        document.getElementById('view-user-name').innerText = u.name;
-        document.getElementById('view-user-email').innerText = u.email;
-        // Lakkoofsa postii fiduuf
-        const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(10));
-        const postSnap = await getCountFromServer(q);
-        document.getElementById('view-user-posts').innerText = postSnap.data().count;
-        document.getElementById('profile-modal').style.display = 'flex';
-        document.getElementById('msg-from-profile').onclick = () => {
-            closeProfileModal();
-            startChat(u.uid, u.name, u.photo);
-        };
-    }
-};
-    window.loadUsers = async () => { 
-    const userList = document.getElementById('all-users-list');
-    if(!userList) return;
-    const q = query(collection(db, "users"));
-    const snap = await getDocs(q);
-    userList.innerHTML = "";
-    snap.forEach(d => {
-        const u = d.data();
-        if(u.uid !== auth.currentUser.uid) {
-            userList.innerHTML += `
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid #eee;">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <img src="${u.photo || 'https://via.placeholder.com/40'}" style="width:40px; height:40px; border-radius:50%;">
-                        <b>${u.name}</b>
-                    </div>
-                    <button onclick="startChat('${u.uid}', '${u.name}')" style="padding:5px 10px; background:var(--o-green); color:white; border:none; border-radius:5px; cursor:pointer;">Chat</button>
-                </div>`;
+window.openUserProfile = async (uid) => {
+    console.log("Ilaalamaa jira UID: ", uid);
+    const modal = document.getElementById('profile-modal');
+    
+    try {
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDocs(query(collection(db, "users"), where("uid", "==", uid)));
+        const docRef = doc(db, "users", uid);
+        const dSnap = await getDoc(docRef);
+        
+        if (userSnap.exists()) {
+            const u = userSnap.data();
+            document.getElementById('view-user-pic').src = u.photo || u.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+            document.getElementById('view-user-name').innerText = u.name || u.displayName || "Fayyadamaa ORO";
+            document.getElementById('view-user-email').innerText = u.email || "";
+            document.getElementById('view-user-followers').innerText = (u.followers && u.followers.length) || 0;
+            document.getElementById('view-user-following').innerText = (u.following && u.following.length) || 0;
+            const qPosts = query(collection(db, "posts"), where("userId", "==", uid));
+            const postSnap = await getDocs(qPosts);
+            document.getElementById('view-user-posts').innerText = postSnap.size;
+            
+            // Modal banuu
+            modal.style.display = "flex";
+            const msgBtn = document.getElementById('msg-from-profile');
+            if (msgBtn) {
+                msgBtn.onclick = () => {
+                    modal.style.display = "none";
+                    startChat(uid, u.name || u.displayName, u.photo || u.photoURL);
+                };
+            }
+        } else {
+            alert("Odeeffannoon user kanaa hin jiru.");
         }
-    });
+    } catch (err) {
+        console.error("Modal Error:", err);
+    }
 };
     window.searchUsers = async () => {
     const searchTerm = document.getElementById('search-input').value.trim();
@@ -1651,7 +1692,6 @@ window.loadComments = (postId) => {
     }
     resultsCont.innerHTML = "<p>Barbaadaa jira...</p>";
     try {
-        // Query 1: Maqaan barbaaduu
         const qName = query(collection(db, "users"), 
             where("name", ">=", searchTerm), 
             where("name", "<=", searchTerm + "\uf8ff"));
@@ -1715,28 +1755,33 @@ const generateVideoThumbnail = (file) => {
         };
     });
 };
-    window.toggleFollow = async (targetUid) => {
+    window.toggleFollow = async (targetUid, btn) => {
+    if (!auth.currentUser) return alert("Dura seenuu (Login) qabdu!");
+
     const myUid = auth.currentUser.uid;
     const myName = auth.currentUser.displayName;
-    const userRef = doc(db, "users", targetUid);
-    const myRef = doc(db, "users", myUid);
+    const targetUserRef = doc(db, "users", targetUid);
+    const myUserRef = doc(db, "users", myUid);
 
     try {
         const { getDoc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
-        const userSnap = await getDoc(userRef);
+        const userSnap = await getDoc(targetUserRef);
+        
+        if (!userSnap.exists()) return console.error("User-ri hin argamne");
+        
         const userData = userSnap.data();
         const isFollowing = userData.followers && userData.followers.includes(myUid);
 
         if (isFollowing) {
-            // Unfollow gochuu
-            await updateDoc(userRef, { followers: arrayRemove(myUid) });
-            await updateDoc(myRef, { following: arrayRemove(targetUid) });
-            alert("Hordofuu dhaabdeetta.");
+            // Unfollow
+            await updateDoc(targetUserRef, { followers: arrayRemove(myUid) });
+            await updateDoc(myUserRef, { following: arrayRemove(targetUid) });
+            btn.innerText = "Hordofi";
+            btn.classList.remove("following");
         } else {
-            await updateDoc(userRef, { followers: arrayUnion(myUid) });
-            await updateDoc(myRef, { following: arrayUnion(targetUid) });
-            
-            // Notification ergi
+            // Follow
+            await updateDoc(targetUserRef, { followers: arrayUnion(myUid) });
+            await updateDoc(myUserRef, { following: arrayUnion(targetUid) });
             await addDoc(collection(db, "notifications"), {
                 toUserId: targetUid,
                 fromUserName: myName,
@@ -1744,14 +1789,14 @@ const generateVideoThumbnail = (file) => {
                 time: serverTimestamp(),
                 seen: false
             });
-            alert("Hordofuu jalqabdeetta!");
+            btn.innerText = "Hordofaa Jirta";
+            btn.classList.add("following");
         }
-        loadUsers(); // UI deebisii renew godhi
     } catch (err) {
         console.error("Error toggling follow:", err);
+        alert("Dogoggora: " + err.message);
     }
 };
-// --- 6. NOTIFICATION SYSTEM ---
     window.loadNotifications = () => {
     const notifCont = document.querySelector('#notifications-section .card');
     if (!notifCont || !auth.currentUser) return;
@@ -1770,7 +1815,6 @@ const generateVideoThumbnail = (file) => {
         snap.forEach(d => {
             const n = d.data();
             const timeStr = n.time ? new Date(n.time.toDate()).toLocaleString() : "Ammatti";
-            // Yoo hin ilaalatamin (seen == false)
             const bgStyle = n.seen ? "background:white;" : "background:#fff5f5; border-left:5px solid var(--o-red);";
 
             notifCont.innerHTML += `
@@ -1784,7 +1828,6 @@ const generateVideoThumbnail = (file) => {
         });
     });
 };
-// Iddoo: loadNotifications() 
     window.markNotificationsAsSeen = async () => {
     const q = query(collection(db, "notifications"), where("toUserId", "==", auth.currentUser.uid), where("seen", "==", false));
     const snap = await getDocs(q);
@@ -1803,7 +1846,6 @@ const generateVideoThumbnail = (file) => {
             const type = m.senderId === auth.currentUser.uid ? 'sent' : 'received';
             chatWin.innerHTML += `<div class="msg ${type}">${m.text}</div>`;
             let content = m.text;
-    // Yoo ergaan sun sagalee ta'e
     if(m.audioUrl) {
         content = `<audio controls src="${m.audioUrl}" style="width:200px; height:30px;"></audio>`;
     }
@@ -1815,7 +1857,6 @@ const generateVideoThumbnail = (file) => {
         chatWin.scrollTop = chatWin.scrollHeight;
     });
 };
-// 3. Ergaa Erguu
     document.getElementById('send-chat-btn').onclick = async () => {
     const input = document.getElementById('chat-msg-input');
     if(!input.value || !selectedChatUser) return;
@@ -1827,7 +1868,7 @@ const generateVideoThumbnail = (file) => {
     });
     input.value = "";
 };
-// Koodii Ergaa barreeffamaa ergu jalatti galchi
+
 const recordBtn = document.getElementById('record-btn');
 const statusLabel = document.getElementById('record-status');
 recordBtn.addEventListener('click', async () => {
@@ -1867,13 +1908,11 @@ recordBtn.addEventListener('click', async () => {
         recordBtn.innerText = "🎙️";
     }
 });
-// --- 1. SCREENSHOT PROTECTION ---
     window.toggleScreenshotProtection = () => {
     const isChecked = document.getElementById('screenshot-toggle').checked;
     if (isChecked) {
         document.body.style.userSelect = "none";
         document.body.style.webkitUserSelect = "none";
-        // CSS dabalataa (Security Overlay)
         const overlay = document.createElement('style');
         overlay.id = "ss-style";
         overlay.innerHTML = `canvas, video, img { filter: blur(0px); transition: 0.3s; } 
@@ -1886,7 +1925,6 @@ recordBtn.addEventListener('click', async () => {
         alert("Screenshot Protection cufameera.");
     }
 };
-// --- 2. PASSWORD UPDATE (FIREBASE AUTH) ---
      window.updateUserPassword = async () => {
     const user = auth.currentUser;
     const oldPass = document.getElementById('old-pass').value;
@@ -1902,7 +1940,6 @@ recordBtn.addEventListener('click', async () => {
         const { updatePassword } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js");
         await updatePassword(user, newPass);
         alert("Icciitiin keessan milkaa'inaan jijjiirameera! ✅");
-        // Iddoo barreeffamaa qulqulleessi
         document.querySelectorAll('input[type="password"]').forEach(i => i.value = "");
     } catch (err) {
         console.error(err);
@@ -1932,7 +1969,7 @@ async function reportPost(postId, postText, reason) {
       postContent: postText,
       reportedBy: auth.currentUser.uid,
       reason: reason,
-      status: "pending", // Admin akka ilaaluuf
+      status: "pending",
       timestamp: serverTimestamp()
     });
     alert("Gabaasni kee nu ga'eera. Ni madaalla!");
@@ -1940,14 +1977,10 @@ async function reportPost(postId, postText, reason) {
     console.error("Gabaasni hin ergamne: ", error);
   }
 }
-
-// Postii balleessuuf
 async function deleteReportedPost(postId, reportId) {
   if (confirm("Postii kana balleessuu ni barbaaddaa?")) {
     try {
-      // 1. Postii sana balleessi
       await deleteDoc(doc(db, "posts", postId));
-      // 2. Gabaasa (report) sanas 'resolved' godhi ykn balleessi
       await deleteDoc(doc(db, "reports", reportId));
       
       alert("Postiin sun balleeffameera!");
@@ -1956,13 +1989,10 @@ async function deleteReportedPost(postId, reportId) {
     }
   }
 }
-
-// --- 3. KAFFALTII RAAWWADHU ---
     window.processPayment = async () => {
     try {
         const user = auth.currentUser;
         const userRef = doc(db, "users", user.uid);
-        // settingsData asitti dhiyaachuu qaba
         const settingsData = { /* data kee */ };
         await updateDoc(userRef, { settings: settingsData });
         alert("Settings hundi milkaa'inaan ol-ka'aniiru!");
@@ -1970,7 +2000,6 @@ async function deleteReportedPost(postId, reportId) {
         alert("Rakkoon uumame: " + error.message);
     }
 };
-// 2. Password jijjiiruuf
 async function updateUserPassword() {
     const newPass = document.getElementById('new-pass').value;
     const user = auth.currentUser;
@@ -2008,7 +2037,6 @@ window.saveAllSettings = async () => {
         alert("Rakkoon uumame: " + error.message);
     }
 };
-// 5. Screenshot Protection (Simple CSS Hack)
 document.getElementById('screenshot-toggle').addEventListener('change', function() {
     if(this.checked) {
         document.body.style.userSelect = "none"; 
@@ -2023,7 +2051,41 @@ if ('serviceWorker' in navigator) {
             .catch(err => console.error('Service Worker: Error', err));
     });
 }
+window.updateSettingRealTime = async (key, value) => {
+    const user = auth.currentUser;
+    if (!user) return;
 
+    try {
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+            [`settings.${key}`]: value
+        });
+        console.log(`Setting ${key} milkaa'inaan save ta'eera:`, value);
+    } catch (error) {
+        console.error("Settings save gochuu irratti dogoggora:", error);
+    }
+};
+document.addEventListener("DOMContentLoaded", () => {
+    const ssToggle = document.getElementById('screenshot-toggle');
+    if (ssToggle) {
+        ssToggle.addEventListener('change', (e) => {
+            window.updateSettingRealTime('screenshotProtection', e.target.checked);
+            document.body.style.userSelect = e.target.checked ? "none" : "auto";
+        });
+    }
+    const postPrivacy = document.getElementById('post-privacy-select');
+    if (postPrivacy) {
+        postPrivacy.addEventListener('change', (e) => {
+            window.updateSettingRealTime('postPrivacy', e.target.value);
+        });
+    }
+    const notifySound = document.getElementById('notify-sound');
+    if (notifySound) {
+        notifySound.addEventListener('change', (e) => {
+            window.updateSettingRealTime('notificationsEnabled', e.target.checked);
+        });
+    }
+});
 window.addEventListener('load', () => {
     const savedLang = localStorage.getItem("appLanguage") || "om";
     const langSelect = document.getElementById("lang-select");
@@ -2058,7 +2120,6 @@ window.closePrivacyModal = () => {
         modal.style.display = 'none';
     }
 };
-// Yoo ala tuqan akka cufamu
 window.addEventListener('click', (event) => {
     const modal = document.getElementById('privacy-modal');
     if (event.target == modal) {
@@ -2082,92 +2143,4 @@ window.onscroll = () => {
 };
     </script>
 </body>
-</html><!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.11.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.11.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.11.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
 </html>
