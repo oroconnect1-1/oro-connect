@@ -1,28 +1,38 @@
 name: Build Android APK
-
 on:
   push:
-    branches: [ main, master ] # Akka 'master' irrattis hojjatuuf dabalameera
-  workflow_dispatch: 
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          # Cache yeroof dhaabneera akka dogoggora 'No file matched' sun hin fiduuf
-          
-      - name: Install Dependencies
-        run: npm install
 
-      - name: Capacitor Sync
-        run: npx cap sync android
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Initialize Capacitor and Android
+        run: |
+          # Folder 'android' yoo hin jiraanne ofumaan uuma
+          npx cap init "ORO-CONNECT" "com.oroconnect.app" --web-dir www
+          npx cap add android
+          npx cap sync android
 
       - name: Build with Gradle
         run: |
