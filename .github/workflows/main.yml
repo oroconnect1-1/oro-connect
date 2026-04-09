@@ -35,8 +35,11 @@ jobs:
 
       - name: Generate App Icons
         run: |
-          # Fakkii www/icon.png irraa icon-oota Android hunda uuma
-          npx capacitor-assets generate --android --icon-path www/icon.png
+          # Folder assets uumee fakkii www/icon.png keessa kaaya
+          mkdir -p assets
+          cp www/icon.png assets/icon.png
+          # Meeshaan kun ofumaan folder assets/icon.png irraa dubbisa
+          npx capacitor-assets generate --android
 
       - name: Sync Capacitor
         run: npx cap sync android
