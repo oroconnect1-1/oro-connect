@@ -25,14 +25,21 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/assets
 
       - name: Initialize Capacitor and Android
         run: |
           # Folder 'android' yoo hin jiraanne ofumaan uuma
           npx cap init "ORO-CONNECT" "com.oroconnect.app" --web-dir www
           npx cap add android
-          npx cap sync android
+
+      - name: Generate App Icons
+        run: |
+          # Fakkii www/icon.png irraa icon-oota Android hunda uuma
+          npx capacitor-assets generate --android --icon-path www/icon.png
+
+      - name: Sync Capacitor
+        run: npx cap sync android
 
       - name: Build with Gradle
         run: |
