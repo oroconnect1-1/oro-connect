@@ -426,7 +426,7 @@
             
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px; font-weight: 500;">Maqaa Guutuu:</label>
-                <input type="text" value="Abduletif Geleto Godana" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                <input type="text" value="Abdii" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
             </div>
             
             <div style="margin-bottom: 15px;">
@@ -651,9 +651,10 @@ GALATOOMAA!</p>
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { 
-        getFirestore,enableIndexedDbPersistence, setDoc, collection, addDoc, serverTimestamp,
+        getFirestore,initializeFirestore,
+persistentLocalCache, setDoc, collection, addDoc, serverTimestamp,
                   query, orderBy, deleteDoc, doc, updateDoc,
-                  increment, where, startAfter, getDocs, getCountFromServer,onSnapshot, arrayUnion, arrayRemove, limit
+                  increment, where, startAfter, getDocs, getCountFromServer,onSnapshot, arrayUnion, arrayRemove, limit, getDoc
     } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     import { 
         getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
@@ -662,7 +663,6 @@ GALATOOMAA!</p>
     import { 
         getStorage, ref, uploadBytesResumable, getDownloadURL, uploadBytes 
     } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-    // --- FIREBASE CONFIG ---
     const firebaseConfig = {
         apiKey: "AIzaSyAC4bFFBf5dXV90euMxhuM0qvIowTCxrwg",
         authDomain: "oro-connect-1.firebaseapp.com",
@@ -671,28 +671,17 @@ GALATOOMAA!</p>
         messagingSenderId: "822417232593",
         appId: "1:822417232593:web:8530f0930668541078abf0"
     };
-    // 1. Firebase Setup (Akkuma jiruun)
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db = initializeFirestore(app, {
+    localCache: persistentLocalCache()
+});
 const auth = getAuth();
 const storage = getStorage(app);
-
-// Offline Persistence sirreessuu
-enableIndexedDbPersistence(db).catch((err) => {
-    if (err.code === 'failed-precondition') {
-        console.warn('Tab-ni baay\'een banameera, offline-n hin hojjetu.');
-    } else if (err.code === 'unimplemented') {
-        console.warn('Browser-ni kee kana hin deeggaru.');
-    }
-});
-
-// State Variables
 let selectedChatUser = null;
 let lastVisible = null; 
 let isFetching = false; 
 let mediaRecorder;
 let audioChunks = [];
-
 const i18n_data = {
     om: {
         welcome: "Baga nagaan gara ORO-CONNECT dhuftan!",
@@ -743,7 +732,6 @@ const i18n_data = {
         comments: "አስተያየቶች"
     }
 };
-
 window.AppLanguageManager = {
     apply: (lang) => {
         const t = i18n_data[lang];
@@ -791,10 +779,8 @@ document.addEventListener("DOMContentLoaded", () => {
         selectElement.value = savedLang;
         selectElement.addEventListener('change', window.AppLanguageManager.change);
     }
-    
     window.AppLanguageManager.apply(savedLang);
 });
-
    window.loadMorePosts = async () => {
     if (isFetching) return;
     const feedContainer = document.getElementById('feed-container');
@@ -814,7 +800,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 limit(10)
             );
         } else {
-            // Itti fufuuf (Pagination)
             q = query(
                 collection(db, "posts"), 
                 orderBy("createdAt", "desc"), 
@@ -937,6 +922,28 @@ window.loadUsers = async () => {
         userList.innerHTML = "<p style='color:red; text-align:center;'>Dogoggora uumame: " + err.message + "</p>";
     }
 };
+window.blockUser = async (targetUid) => {
+    if (!confirm("Nama kana block gochuu barbaaddu?")) return;
+    const myUid = auth.currentUser.uid;
+    
+    try {
+        await updateDoc(doc(db, "users", myUid), {
+            blockedUsers: arrayUnion(targetUid)
+        });
+        alert("Nama kana block gooteetta.");
+    } catch (err) {
+        console.error("Block Error:", err);
+    }
+};
+const sendMessage = async (text, receiverUid) => {
+    const userSnap = await getDoc(doc(db, "users", receiverUid));
+    const blockedByTarget = userSnap.data().blockedUsers || [];
+    
+    if (blockedByTarget.includes(auth.currentUser.uid)) {
+        alert("Nama kanaan block taatee jirta, ergaa erguu hin dandeessu.");
+        return;
+    }
+};
     window.switchSection = (id, e) => {
          if (e) e.preventDefault();
         document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
@@ -950,7 +957,6 @@ window.loadUsers = async () => {
 window.closeProfileModal = () => {
     document.getElementById('profile-modal').style.display = 'none';
 };
-
 window.closePrivacyModal = () => {
     document.getElementById('privacy-modal').style.display = 'none';
 };
@@ -1023,7 +1029,9 @@ document.addEventListener('click', (e) => {
                 name,
                 email,
                 uid: user.uid,
-                photo: "",
+                photoURL: "",
+             followers: [],
+              following: [],
                 createdAt: serverTimestamp()
             });
             alert("Baga nagaan dhuftan, herreggi keessan uumameera!");
@@ -1038,7 +1046,7 @@ async function openUserProfile(userId) {
     const modal = document.getElementById('profile-modal');
     
     try {
-        const userDoc = await getDoc(doc(db, "users", uid));
+        const userDoc = await getDoc(doc(db, "users", userId));
         
         if (userDoc.exists) {
             const data = userDoc.data();
@@ -1559,6 +1567,16 @@ window.loadComments = (postId) => {
         alert("Kooppii gochuun hin danda'amne.");
     });
 };
+window.reportPost = async (postId) => {
+    const postRef = doc(db, "posts", postId);
+    try {
+        await updateDoc(postRef, {
+            reportCount: increment(1),
+            reportedBy: arrayUnion(auth.currentUser.uid)
+        });
+        alert("Gabaasni kee nu ga'eera.");
+    } catch (err) { console.error(err); }
+};
    window.updateFullProfile = async () => {
     const user = auth.currentUser;
     const fileInput = document.getElementById('upload-photo');
@@ -1646,48 +1664,58 @@ window.loadComments = (postId) => {
             });
     });
 }
-window.openUserProfile = async (uid) => {
-    console.log("Ilaalamaa jira UID: ", uid);
+window.openUserProfile = async (userId) => {
     const modal = document.getElementById('profile-modal');
-    
+    if (!modal) return;
+    const currentUid = auth.currentUser ? auth.currentUser.uid : null;
+
     try {
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDocs(query(collection(db, "users"), where("uid", "==", uid)));
-        const docRef = doc(db, "users", uid);
-        const dSnap = await getDoc(docRef);
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
         
         if (userSnap.exists()) {
             const u = userSnap.data();
             document.getElementById('view-user-pic').src = u.photo || u.photoURL || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
             document.getElementById('view-user-name').innerText = u.name || u.displayName || "Fayyadamaa ORO";
             document.getElementById('view-user-email').innerText = u.email || "";
-            document.getElementById('view-user-followers').innerText = (u.followers && u.followers.length) || 0;
-            document.getElementById('view-user-following').innerText = (u.following && u.following.length) || 0;
-            const qPosts = query(collection(db, "posts"), where("userId", "==", uid));
+            
+            const followersList = Array.isArray(u.followers) ? u.followers : [];
+            const followingList = Array.isArray(u.following) ? u.following : [];
+            document.getElementById('view-user-followers').innerText = followersList.length;
+            document.getElementById('view-user-following').innerText = followingList.length;
+            const qPosts = query(collection(db, "posts"), where("userId", "==", userId));
             const postSnap = await getDocs(qPosts);
             document.getElementById('view-user-posts').innerText = postSnap.size;
-            
-            // Modal banuu
+
             modal.style.display = "flex";
+            const userPostCont = document.getElementById('user-posts-list');
+            if (userPostCont) {
+                let userPosts = [];
+                postSnap.forEach(d => userPosts.push({ id: d.id, ...d.data() }));
+                renderMixedFeed(userPosts, userPostCont);
+            }
             const msgBtn = document.getElementById('msg-from-profile');
-            if (msgBtn) {
+            if (msgBtn && currentUid) {
                 msgBtn.onclick = () => {
                     modal.style.display = "none";
-                    startChat(uid, u.name || u.displayName, u.photo || u.photoURL);
+                    startChat(userId, u.name || u.displayName, u.photo || u.photoURL);
                 };
             }
+
         } else {
             alert("Odeeffannoon user kanaa hin jiru.");
         }
     } catch (err) {
         console.error("Modal Error:", err);
+        alert("Rakkoo uumameera: " + err.message);
     }
 };
+
     window.searchUsers = async () => {
     const searchTerm = document.getElementById('search-input').value.trim();
     const resultsCont = document.getElementById('search-results');
     if (!searchTerm) {
-        resultsCont.innerHTML = "<p style='color:gray;'>Maaloo waan barbaadan barreessaa.</p>";
+        resultsCont.innerHTML = "<p style='color:gray;'>Maaloo waan barbaaddan barreessaa.</p>";
         return;
     }
     resultsCont.innerHTML = "<p>Barbaadaa jira...</p>";
@@ -1757,7 +1785,6 @@ const generateVideoThumbnail = (file) => {
 };
     window.toggleFollow = async (targetUid, btn) => {
     if (!auth.currentUser) return alert("Dura seenuu (Login) qabdu!");
-
     const myUid = auth.currentUser.uid;
     const myName = auth.currentUser.displayName;
     const targetUserRef = doc(db, "users", targetUid);
@@ -1770,8 +1797,9 @@ const generateVideoThumbnail = (file) => {
         if (!userSnap.exists()) return console.error("User-ri hin argamne");
         
         const userData = userSnap.data();
-        const isFollowing = userData.followers && userData.followers.includes(myUid);
-
+        const followers = Array.isArray(userData.followers) ? userData.followers : [];
+        const isFollowing = followers.includes(myUid);
+        
         if (isFollowing) {
             // Unfollow
             await updateDoc(targetUserRef, { followers: arrayRemove(myUid) });
@@ -1809,7 +1837,7 @@ const generateVideoThumbnail = (file) => {
     onSnapshot(q, (snap) => {
         notifCont.innerHTML = "<h3>🔔 Activity Log</h3>";
         if (snap.empty) {
-            notifCont.innerHTML += "<p style='color:gray; padding:10px; text-align:center;'>Hamma duraa activity'n hin jiru.</p>";
+            notifCont.innerHTML += "<p style='color:gray; padding:10px; text-align:center;'>Hamma Ammaa activity'n hin jiru.</p>";
             return;
         }
         snap.forEach(d => {
@@ -2021,11 +2049,11 @@ window.saveAllSettings = async () => {
     if (!user) return alert("Maaloo dura gali!");
     
     const settingsData = {
-        postPrivacy: document.getElementById('post-privacy-select').value,
-        commentPrivacy: document.getElementById('comment-privacy-select').value,
+        postPrivacy: document.getElementById('post-privacy-select')?.value || "public",
+        commentPrivacy: document.getElementById('comment-privacy-select')?.value || "everyone",
         notifications: {
-            email: document.getElementById('notify-email').checked,
-            sound: document.getElementById('notify-sound').checked
+            email: document.getElementById('notify-email')?.checked || false,
+    sound: document.getElementById('notify-sound')?.checked || false
         }
     };
     
@@ -2034,6 +2062,7 @@ window.saveAllSettings = async () => {
         await updateDoc(userRef, { settings: settingsData });
         alert("Settings hundi milkaa'inaan ol-ka'aniiru! ✅");
     } catch (error) {
+        console.error("Save Error:", error);
         alert("Rakkoon uumame: " + error.message);
     }
 };
@@ -2057,9 +2086,9 @@ window.updateSettingRealTime = async (key, value) => {
 
     try {
         const userRef = doc(db, "users", user.uid);
-        await updateDoc(userRef, {
-            [`settings.${key}`]: value
-        });
+        let updateData = {};
+        updateData[`settings.${key}`] = value;
+        await updateDoc(userRef, updateData);
         console.log(`Setting ${key} milkaa'inaan save ta'eera:`, value);
     } catch (error) {
         console.error("Settings save gochuu irratti dogoggora:", error);
@@ -2086,6 +2115,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+if (auth.currentUser) {
+    const user = auth.currentUser;
+    const userRef = doc(db, "users", user.uid);
+    setDoc(userRef, {
+        settings: {
+            [key]: value }
+    }, { merge: true }).then(() => {
+        console.log("Settings haaromfameera!");
+    }).catch((err) => {
+        console.error("Dogoggora:", err);
+    });
+}
 window.addEventListener('load', () => {
     const savedLang = localStorage.getItem("appLanguage") || "om";
     const langSelect = document.getElementById("lang-select");
@@ -2143,4 +2184,4 @@ window.onscroll = () => {
 };
     </script>
 </body>
-          </html>
+</html>
