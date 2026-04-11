@@ -367,64 +367,56 @@
             </div>
 
             <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee; position: relative;">
-    
-    <label for="chat-media-input" style="cursor: pointer; font-size: 1.6rem; color: #555; display: flex; align-items: center;" title="Suuraa ykn Viidiyoo">
-        🖼️
-    </label>
-    <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;" onchange="sendChatMedia(event)">
-    
-    <button id="record-btn" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #555; display: flex; align-items: center;" title="Sagalee waraabi">
-        🎙️
-    </button>
-    
-    <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." 
-           style="flex-grow: 1; 
-                  padding: 12px 18px; 
-                  border-radius: 25px; 
-                  border: 2px solid #ddd; 
-                  outline: none; 
-                  font-size: 14px; 
-                  margin-bottom: 5px;
-                  display: block;">
-    
-    <button id="send-chat-btn" style="background: #0e8140; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0;">
-        <span style="font-size: 1.2rem;">✈️</span>
-    </button>
-</div>
+                <label for="chat-media-input" style="cursor: pointer; font-size: 1.6rem; color: #555; display: flex; align-items: center;" title="Suuraa ykn Viidiyoo">
+                    🖼️
+                </label>
+                <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;" onchange="sendChatMedia(event)">
+                
+                <button id="record-btn" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #555; display: flex; align-items: center;" title="Sagalee waraabi">
+                    🎙️
+                </button>
+                
+                <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." 
+                       style="flex-grow: 1; padding: 12px 18px; border-radius: 25px; border: 2px solid #ddd; outline: none; font-size: 14px;">
+                
+                <button id="send-chat-btn" style="background: #0e8140; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0;">
+                    <span style="font-size: 1.2rem;">✈️</span>
+                </button>
+            </div>
 
-<div id="record-status" style="font-size: 11px; color: red; padding: 2px 15px; display: none; background: #fff0f0; text-align: center;">
-    Waraabaa jira... 🔴
-      </div>
+            <div id="record-status" style="font-size: 11px; color: red; padding: 2px 15px; display: none; background: #fff0f0; text-align: center;">
+                Waraabaa jira... 🔴
+            </div>
+        </div> </div> </div> <div id="notifications-section" class="page-section">
+    <div class="card">
+        <h3>🔔 Activity Log</h3>
+        <div style="padding:10px 0; border-bottom:1px solid #eee;"><b>❤️ Alamaayyoon</b> postii kee jaalateera.</div>
     </div>
 </div>
-            <div id="notifications-section" class="page-section">
-                <div class="card">
-                    <h3>🔔 Activity Log</h3>
-                    <div style="padding:10px 0; border-bottom:1px solid #eee;"><b>❤️ Alamaayyoon</b> postii kee jaalateera.</div>
-                </div>
-            </div>
-                     <div id="calls-section" class="page-section">
-                <div class="card">
-                    <h3>📞 Bilbila</h3>
-                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
-                        <span>Obbo Alamaayyoo</span> <span style="color:gray;">2:30 PM</span>
-                    </div>
-                    <button class="btn-main">Bilbila Haaraa</button>
-                </div>
-            </div>
 
-            <div id="profile-section" class="page-section">
-                <div class="card" style="text-align:center;">
-<img id="user-prof-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"style="width: 100px; height: 100px; margin-bottom: 10px;border-radius: 50%;">
-       <img id="my-prof-pic" src="" style="display:none;">
-          <h2 id="user-display-name">Fayyadamaa ORO</h2>
-                    <p id="user-display-email">Email@example.com</p>
-                    <div style="display:flex; justify-content:space-around; margin-top:20px;">
-                        <div><b>1.2k</b><br>Followers</div>
-                        <div><b>800</b><br>Following</div>
-                    </div>
-                </div>
-            </div>
+<div id="calls-section" class="page-section">
+    <div class="card">
+        <h3>📞 Bilbila</h3>
+        <div style="margin: 15px 0; padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+            <span>Obbo Alamaayyoo</span> <span style="color:gray;">2:30 PM</span>
+        </div>
+        <button class="btn-main">Bilbila Haaraa</button>
+    </div>
+</div>
+
+<div id="profile-section" class="page-section">
+    <div class="card" style="text-align:center;">
+        <img id="user-prof-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" style="width: 100px; height: 100px; margin-bottom: 10px; border-radius: 50%; object-fit: cover;">
+        <img id="my-prof-pic" src="" style="display:none;">
+        <h2 id="user-display-name">Fayyadamaa ORO</h2>
+        <p id="user-display-email">Email@example.com</p>
+        <div style="display:flex; justify-content:space-around; margin-top:20px;">
+            <div><b>1.2k</b><br>Followers</div>
+            <div><b>800</b><br>Following</div>
+        </div>
+    </div>
+</div>
+
 <div id="settings-section" class="page-section">
     <h2 style="margin-bottom: 20px; border-bottom: 2px solid var(--o-green); padding-bottom: 10px;">⚙️ Settings</h2>
     
@@ -2263,3 +2255,4 @@ window.onscroll = () => {
     </script>
 </body>
 </html>
+O
