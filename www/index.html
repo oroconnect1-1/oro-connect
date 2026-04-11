@@ -320,7 +320,7 @@
          <div id="users-section" class="page-section">
     <div class="card">
         <h3>👥 Hawaasa ORO-CONNECT</h3>
-        <p style="font-size: 0.9rem; color: gray; margin-bottom: 10px;">Namoota haaraa hordofaa, walitti dhufeenya uumaa.</p>
+        <p style="font-size: 0.9rem; color: gray; margin-bottom: 10px;">Namoota hordofaa, walitti dhufeenya uumaa.</p>
         <hr>
         <div id="all-users-list">
             <div class="card" style="display: flex; align-items: center; justify-content: space-between; border-top: none; border-bottom: 1px solid #eee;">
@@ -331,40 +331,70 @@
              <small style="color: gray;">@alamayyoo</small>
          </div>
      </div>
-     <button class="follow-btn" onclick="toggleFollow(this)" style="padding: 5px 15px; border-radius: 20px; border: 2px solid var(--o-green); background: white; color: var(--o-green); font-weight: bold; cursor: pointer;">Hordof (Follow)</button>
+     <button class="follow-btn" onclick="toggleFollow(this)" style="padding: 5px 8px; border-radius: 10px; border: 2px solid var(--o-green); background: white; color: var(--o-green); font-weight: bold; cursor: pointer;">Hordofi (Follow)</button>
  </div>
  </div>
  </div>
  </div>
 
 <div id="messages-section" class="page-section">
-    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 15px; height: 80vh;">
-        <div class="card" style="overflow-y: auto; padding: 10px;">
-            <h4 style="margin-bottom: 10px; border-bottom: 1px solid #eee;">Namoota</h4>
+    <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 15px; height: 85vh;">
+        
+        <div class="card" style="overflow-y: auto; padding: 10px; border-right: 1px solid #eee;">
+            <h4 style="margin-bottom: 6px; border-bottom: 2px solid #0e8140; padding-bottom: 5px;">Tarree namootaa</h4>
             <div id="users-chat-list">
                 <p style="font-size: 12px; color: gray;">Namoota barbaadaa jira...</p>
             </div>
         </div>
 
-<div id="chat-container" class="card" style="display: flex; flex-direction: column; padding: 0; height: 80vh;">
-    <div id="chat-header" style="padding: 15px; background: var(--o-black); color: white; display: flex; align-items: center; gap: 10px;">
-        <img id="chatting-with-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid white;">
-        <b id="chatting-with-name">Nama filadhu</b>
-          <span id="chatting-with" style="display:none;"></span> 
-    </div>
-    
-    <div id="chat-window" style="flex: 1; overflow-y: auto; padding: 15px; background: #f4f4f4; display: flex; flex-direction: column;">
-        </div>
+        <div id="chat-container" class="card" style="display: flex; flex-direction: column; padding: 0; height: 85vh; background: #fff; border-radius: 12px; overflow: hidden;">
+            
+            <div id="chat-header" style="padding: 12px 15px; background: #333; color: white; display: flex; align-items: center; gap: 12px;">
+                <img id="chatting-with-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #0e8140; object-fit: cover;">
+                <div>
+                    <b id="chatting-with-name" style="display: block;">Nama filadhu</b>
+                    <small id="chat-status" style="color: #00b894; font-size: 10px;">Filannoo kee eegaa jira...</small>
+                </div>
+                <span id="chatting-with" style="display:none;"></span> 
+            </div>
+            
+            <div id="chat-window" style="flex: 1; overflow-y: auto; padding: 15px; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px;">
+                <p style="text-align: center; color: gray; margin-top: 20px;">Dubbachuuf nama tokko filadhu.</p>
+            </div>
 
-    <div style="padding: 15px; display: flex; gap: 10px; border-top: 1px solid #eee; align-items: center;">
-        <button id="record-btn" style="background: none; border: none; font-size: 24px; cursor: pointer;">🎙️</button>
-        
-        <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." style="margin-bottom: 0; flex: 1;">
-        
-        <button id="send-chat-btn" class="btn-main" style="width: 60px; background: var(--o-blue);">✈️</button>
-    </div>
-    <div id="record-status" style="font-size: 10px; color: red; padding: 0 15px; display: none;">Waraabaa jira... 🔴</div>
-       </div>
+            <div id="chat-upload-progress-container" style="background: #eee; height: 4px; display: none;">
+                <div id="chat-upload-progress" style="height: 100%; background: #0e8140; width: 0%; transition: 0.3s;"></div>
+            </div>
+
+            <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee; position: relative;">
+    
+    <label for="chat-media-input" style="cursor: pointer; font-size: 1.6rem; color: #555; display: flex; align-items: center;" title="Suuraa ykn Viidiyoo">
+        🖼️
+    </label>
+    <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;" onchange="sendChatMedia(event)">
+    
+    <button id="record-btn" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #555; display: flex; align-items: center;" title="Sagalee waraabi">
+        🎙️
+    </button>
+    
+    <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." 
+           style="flex-grow: 1; 
+                  padding: 12px 18px; 
+                  border-radius: 25px; 
+                  border: 2px solid #ddd; 
+                  outline: none; 
+                  font-size: 14px; 
+                  margin-bottom: 5px;
+                  display: block;">
+    
+    <button id="send-chat-btn" style="background: #0e8140; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0;">
+        <span style="font-size: 1.2rem;">✈️</span>
+    </button>
+</div>
+
+<div id="record-status" style="font-size: 11px; color: red; padding: 2px 15px; display: none; background: #fff0f0; text-align: center;">
+    Waraabaa jira... 🔴
+      </div>
     </div>
 </div>
             <div id="notifications-section" class="page-section">
@@ -1867,19 +1897,30 @@ const generateVideoThumbnail = (file) => {
     const chatWin = document.getElementById('chat-window');
     const chatId = [auth.currentUser.uid, targetUid].sort().join('_');
     const q = query(collection(db, "chats", chatId, "messages"), orderBy("time", "asc"));
+
     onSnapshot(q, (snap) => {
         chatWin.innerHTML = "";
         snap.forEach(d => {
             const m = d.data();
             const type = m.senderId === auth.currentUser.uid ? 'sent' : 'received';
-            chatWin.innerHTML += `<div class="msg ${type}">${m.text}</div>`;
-            let content = m.text;
-    if(m.audioUrl) {
-        content = `<audio controls src="${m.audioUrl}" style="width:200px; height:30px;"></audio>`;
-    }
-             const msgDiv = document.createElement('div');
+            
+            let messageContent = "";
+
+            if (m.text) {
+                messageContent = `<span>${m.text}</span>`;
+            } else if (m.mediaUrl) {
+                if (m.type === 'image') {
+                    messageContent = `<img src="${m.mediaUrl}" style="max-width:200px; border-radius:10px; cursor:pointer;" onclick="window.open('${m.mediaUrl}')">`;
+                } else if (m.type === 'video') {
+                    messageContent = `<video src="${m.mediaUrl}" controls style="max-width:200px; border-radius:10px;"></video>`;
+                }
+            } else if (m.audioUrl) {
+                messageContent = `<audio controls src="${m.audioUrl}" style="width:200px; height:40px;"></audio>`;
+            }
+
+            const msgDiv = document.createElement('div');
             msgDiv.className = `msg ${type}`;
-            msgDiv.innerHTML = content;
+            msgDiv.innerHTML = messageContent;
             chatWin.appendChild(msgDiv);
         });
         chatWin.scrollTop = chatWin.scrollHeight;
@@ -1936,6 +1977,43 @@ recordBtn.addEventListener('click', async () => {
         recordBtn.innerText = "🎙️";
     }
 });
+window.sendChatMedia = async (event) => {
+    const file = event.target.files[0];
+    if (!file || !selectedChatUser) return;
+
+    const progressBarr = document.getElementById('chat-upload-progress');
+    const chatId = [auth.currentUser.uid, selectedChatUser].sort().join('_');
+    
+    try {
+        progressBarr.style.display = 'block';
+        const fileRef = ref(storage, `chats/media/${Date.now()}_${file.name}`);
+        const uploadTask = uploadBytesResumable(fileRef, file);
+
+        uploadTask.on('state_changed', 
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBarr.style.width = progress + "%";
+            }, 
+            (error) => { alert("Fe'uu irratti dogoggora: " + error.message); }, 
+            async () => {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                const mediaType = file.type.startsWith('image') ? 'image' : 'video';
+                await addDoc(collection(db, "chats", chatId, "messages"), {
+                    mediaUrl: downloadURL,
+                    type: mediaType,
+                    senderId: auth.currentUser.uid,
+                    time: serverTimestamp()
+                });
+
+                progressBarr.style.display = 'none';
+                progressBarr.style.width = "0%";
+            }
+        );
+    } catch (err) {
+        console.error("Media send error:", err);
+        progressBarr.style.display = 'none';
+    }
+};
     window.toggleScreenshotProtection = () => {
     const isChecked = document.getElementById('screenshot-toggle').checked;
     if (isChecked) {
