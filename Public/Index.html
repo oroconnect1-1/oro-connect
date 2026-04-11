@@ -340,79 +340,77 @@
 <div id="messages-section" class="page-section">
     <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 15px; height: 85vh;">
         
-        <div class="card" style="overflow-y: auto; padding: 10px; border-right: 1px solid #eee;">
-            <h4 style="margin-bottom: 6px; border-bottom: 2px solid #0e8140; padding-bottom: 5px;">Tarree namootaa</h4>
+        <div class="card" style="overflow-y: auto; padding: 10px; border-right: 1px solid #eee; background: #fff; border-radius: 12px;">
+            <h4 style="margin-bottom: 10px; border-bottom: 2px solid #0e8140; padding-bottom: 8px;">Tarree namootaa</h4>
             <div id="users-chat-list">
-                <p style="font-size: 12px; color: gray;">Namoota barbaadaa jira...</p>
+                <p style="font-size: 12px; color: gray; text-align: center;">Namoota barbaadaa jira...</p>
             </div>
         </div>
 
-        <div id="chat-container" class="card" style="display: flex; flex-direction: column; padding: 0; height: 85vh; background: #fff; border-radius: 12px; overflow: hidden;">
+        <div id="chat-container" class="card" style="display: flex; flex-direction: column; padding: 0; height: 85vh; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #eee;">
             
             <div id="chat-header" style="padding: 12px 15px; background: #333; color: white; display: flex; align-items: center; gap: 12px;">
                 <img id="chatting-with-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #0e8140; object-fit: cover;">
                 <div>
-                    <b id="chatting-with-name" style="display: block;">Nama filadhu</b>
+                    <b id="chatting-with-name" style="display: block; font-size: 14px;">Nama filadhu</b>
                     <small id="chat-status" style="color: #00b894; font-size: 10px;">Filannoo kee eegaa jira...</small>
                 </div>
                 <span id="chatting-with" style="display:none;"></span> 
             </div>
             
-            <div id="chat-window" style="flex: 1; overflow-y: auto; padding: 15px; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px;">
-                <p style="text-align: center; color: gray; margin-top: 20px;">Dubbachuuf nama tokko filadhu.</p>
+            <div id="chat-window" style="flex: 1; overflow-y: auto; padding: 15px; background: #f4f7f6; display: flex; flex-direction: column; gap: 10px;">
+                <p style="text-align: center; color: gray; margin-top: 20px; font-size: 13px;">Dubbachuuf nama tokko filadhu.</p>
             </div>
 
             <div id="chat-upload-progress-container" style="background: #eee; height: 4px; display: none;">
                 <div id="chat-upload-progress" style="height: 100%; background: #0e8140; width: 0%; transition: 0.3s;"></div>
             </div>
 
-            <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee; position: relative;">
-    
-    <label for="chat-media-input" style="cursor: pointer; font-size: 1.6rem; color: #555; display: flex; align-items: center;" title="Suuraa ykn Viidiyoo">
-        🖼️
-    </label>
-    <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;" onchange="sendChatMedia(event)">
-    
-    <button id="record-btn" style="background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #555; display: flex; align-items: center;" title="Sagalee waraabi">
-        🎙️
-    </button>
-    
-    <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." 
-           style="flex-grow: 1; 
-                  padding: 12px 18px; 
-                  border-radius: 25px; 
-                  border: 2px solid #ddd; 
-                  outline: none; 
-                  font-size: 14px; 
-                  margin-bottom: 5px;
-                  display: block;">
-    
-    <button id="send-chat-btn" style="background: #0e8140; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; flex-shrink: 0;">
-        <span style="font-size: 1.2rem;">✈️</span>
-    </button>
-</div>
+            <div style="padding: 10px 15px; display: flex; align-items: center; gap: 10px; background: white; border-top: 1px solid #eee;">
+                
+                <label for="chat-media-input" style="cursor: pointer; font-size: 1.4rem; color: #555;" title="Suuraa ykn Viidiyoo">
+                    🖼️
+                </label>
+                <input type="file" id="chat-media-input" accept="image/*,video/*" style="display: none;" onchange="sendChatMedia(event)">
+                
+                <button id="record-btn" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #555;" title="Sagalee waraabi">
+                    🎙️
+                </button>
+                
+                <input type="text" id="chat-msg-input" placeholder="Ergaa barreessi..." 
+                       style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid #ddd; outline: none; font-size: 14px;">
+                
+                <button id="send-chat-btn" style="background: #0e8140; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">
+                    <span>✈️</span>
+                </button>
+            </div>
 
-<div id="record-status" style="font-size: 11px; color: red; padding: 2px 15px; display: none; background: #fff0f0; text-align: center;">
-    Waraabaa jira... 🔴
-      </div>
+            <div id="record-status" style="font-size: 11px; color: red; padding: 5px; display: none; background: #fff0f0; text-align: center;">
+                Waraabaa jira... 🔴
+            </div>
+        </div>
     </div>
 </div>
-            <div id="notifications-section" class="page-section">
-                <div class="card">
-                    <h3>🔔 Activity Log</h3>
-                    <div style="padding:10px 0; border-bottom:1px solid #eee;"><b>❤️ Alamaayyoon</b> postii kee jaalateera.</div>
-                </div>
-            </div>
-                     <div id="calls-section" class="page-section">
-                <div class="card">
-                    <h3>📞 Bilbila</h3>
-                    <div style="margin: 15px 0; padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
-                        <span>Obbo Alamaayyoo</span> <span style="color:gray;">2:30 PM</span>
-                    </div>
-                    <button class="btn-main">Bilbila Haaraa</button>
-                </div>
-            </div>
 
+<div id="notifications-section" class="page-section" style="margin-top: 20px;">
+    <div class="card" style="background: #fff; padding: 15px; border-radius: 12px;">
+        <h3 style="font-size: 16px; margin-bottom: 10px;">🔔 Activity Log</h3>
+        <div style="padding:10px 0; border-bottom:1px solid #eee; font-size: 14px;">
+            <b>❤️ Alamaayyoon</b> postii kee jaalateera.
+        </div>
+    </div>
+</div>
+
+<div id="calls-section" class="page-section" style="margin-top: 20px;">
+    <div class="card" style="background: #fff; padding: 15px; border-radius: 12px;">
+        <h3 style="font-size: 16px; margin-bottom: 10px;">📞 Bilbila</h3>
+        <div style="margin: 10px 0; padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold;">Obbo Alamaayyoo</span> 
+            <span style="color:gray; font-size: 12px;">2:30 PM</span>
+        </div>
+        <button class="btn-main" style="width: 100%; padding: 10px; background: #0e8140; color: white; border: none; border-radius: 8px; cursor: pointer;">Bilbila Haaraa</button>
+    </div>
+</div>
             <div id="profile-section" class="page-section">
                 <div class="card" style="text-align:center;">
 <img id="user-prof-pic" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"style="width: 100px; height: 100px; margin-bottom: 10px;border-radius: 50%;">
@@ -1047,31 +1045,56 @@ document.addEventListener('click', (e) => {
     }
 };
         window.handleSignUp = async () => {
-        const name = document.getElementById('reg-name').value;
-        const email = document.getElementById('reg-email').value;
-        const pass = document.getElementById('reg-pass').value;
-        if(!name || !email || !pass) return alert("Hunda guuti!");
-        try {
-            const res = await createUserWithEmailAndPassword(auth, email, pass);
-            const user = res.user;
-            await updateProfile(user, { displayName: name });
-            await setDoc(doc(db, "users", user.uid), {
-                name,
-                email,
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pass = document.getElementById('reg-pass').value;
+    const signUpBtn = document.getElementById('signup-btn');
+    if (!name || !email || !pass) {
+        return alert("Maaloo, hunda guuti!");
+    }
+    if (pass.length < 6) {
+        return alert("Jechi icciitii yoo xiqqaate herregoo 6 ta'uu qaba.");
+    }
+
+    try {
+        signUpBtn.disabled = true;
+        signUpBtn.innerText = "Hojiirra jira...";
+        const res = await createUserWithEmailAndPassword(auth, email, pass);
+        const user = res.user;
+        await Promise.all([
+            updateProfile(user, { displayName: name }),
+            setDoc(doc(db, "users", user.uid), {
+                name: name,
+                email: email,
                 uid: user.uid,
                 photoURL: "",
-             followers: [],
-              following: [],
+                followers: [],
+                following: [],
                 createdAt: serverTimestamp()
-            });
-            alert("Baga nagaan dhuftan, herreggi keessan uumameera!");
-            showPage('home-page'); 
+            })
+        ]);
+        await sendEmailVerification(user);
 
-        } catch (err) {
-            console.error("SignUp Error:", err.code);
-            alert("Dogoggora: " + err.message);
-        }
-    };
+        alert("Baga nagaan dhuftan! Maaloo email keessan mirkaneessaa.");
+        await auth.signOut(); 
+        showPage('login-page');
+
+    } catch (err) {
+        console.error("SignUp Error:", err);
+        const errorMessages = {
+            'auth/email-already-in-use': "Email kun kanaan dura itti hojjetameera.",
+            'auth/invalid-email': "Email kun sirrii miti.",
+            'auth/weak-password': "Jechi icciitii baay'ee laafaadha.",
+            'auth/network-request-failed': "Internet keessan dubbisaa jira."
+        };
+
+        alert(errorMessages[err.code] || "Dogoggora: " + err.message);
+    } finally {
+        signUpBtn.disabled = false;
+        signUpBtn.innerText = "Sign Up";
+    }
+};
+
 async function openUserProfile(userId) {
     const modal = document.getElementById('profile-modal');
     
@@ -2262,4 +2285,4 @@ window.onscroll = () => {
 };
     </script>
 </body>
-</html>
+    </html>
