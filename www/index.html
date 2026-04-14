@@ -1476,54 +1476,72 @@ window.cancelMyUpload = () => {
     cont.innerHTML = "<p>Dogoggora barbaaduu irratti uumame.</p>";
 }
           };
-    window.renderMixedFeed = function(newPosts, cont, isAppend = false) {
+    window.renderMixedFeed = async function(newPosts, cont, isAppend = false) {
     const currentUser = auth.currentUser;
+    let isPremium = false;
+    try {
+        if (currentUser) {
+            const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+            if (userDoc.exists()) {
+                isPremium = userDoc.data()?.isPremium || false;
+            }
+        }
+    } catch (err) {
+        console.error("Error checking premium status:", err);
+    }
+
     let finalHTML = ""; 
 
     if (!newPosts || newPosts.length === 0) {
-        cont.innerHTML = `<p style="text-align:center; color:gray; padding:20px;">Wanti dhiyaate hin jiru.</p>`;
+        if (!isAppend) {
+            cont.innerHTML = `<p style="text-align:center; color:gray; padding:20px;">Wanti dhiyaate hin jiru.</p>`;
+        }
         return;
     }
     newPosts.forEach(p => {
+        if (p.isAd && isPremium) return; 
         const postId = p.id;
         if (p.isAd) {
             finalHTML += `
-                <div class="post-card" style="border-left: 8px solid var(--o-red, #ff4d4d); background: #fff9f9; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="post-card" style="border-left: 8px solid #ff4d4d; background: #fff9f9; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                        <span style="background:var(--o-red, #ff4d4d); color:white; padding:2px 10px; border-radius:5px; font-size:12px; font-weight:bold;">SPONSORED</span>
+                        <span style="background:#ff4d4d; color:white; padding:2px 10px; border-radius:5px; font-size:12px; font-weight:bold;">SPONSORED</span>
                         <small style="color:gray;">Beeksisa</small>
                     </div>
-                    <b style="color:var(--o-blue, #007bff); font-size:1.2rem; display:block;">${p.advertiserName || "ORO-CONNECT Partner"}</b>
+                    <b style="color:#007bff; font-size:1.2rem; display:block;">${p.advertiserName || "Partner"}</b>
                     <p style="margin:10px 0; font-size:1rem; line-height:1.5;">${p.text}</p>
                     ${p.mediaUrl ? `<img src="${p.mediaUrl}" style="width:100%; border-radius:10px; margin-bottom:15px; max-height:350px; object-fit:cover;">` : ''}
-                    <button onclick="window.open('${p.link}', '_blank')" class="btn-main" style="width:100%; padding:12px; background:var(--o-black, #333); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Dabalata Barbaadi</button>
+                    <button onclick="window.open('${p.link}', '_blank')" class="btn-main" style="width:100%; padding:12px; background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Dabalata Barbaadi</button>
                 </div>`;
-        } else {
+        } 
+        else {
             const isOwner = currentUser && p.userId === currentUser.uid;
             let mediaHTML = "";
             if (p.mediaUrl) {
                 if (p.mediaType && p.mediaType.includes('video')) {
                     mediaHTML = `<video src="${p.mediaUrl}" controls style="width:100%; border-radius:12px; margin-top:10px; background:#000; max-height:400px;"></video>`;
                 } else {
-                    mediaHTML = `<img src="${p.mediaUrl}"loading="lazy" style="width:100%; border-radius:12px; margin-top:10px; cursor:pointer; max-height:500px; object-fit:cover;" onclick="window.open('${p.mediaUrl}')">`;
+                    mediaHTML = `<img src="${p.mediaUrl}" loading="lazy" style="width:100%; border-radius:12px; margin-top:10px; cursor:pointer; max-height:500px; object-fit:cover;" onclick="window.open('${p.mediaUrl}')">`;
                 }
             }
+
             let commentsHTML = "";
             if (p.comments && p.comments.length > 0) {
                 p.comments.forEach((c, index) => {
                     const isCommentOwner = currentUser && c.userId === currentUser.uid;
                     commentsHTML += `
-                        <div style="background:#f0f2f5; padding:8px 12px; border-radius:12px; margin-top:8px; font-size:0.9rem; display:flex; justify-content:space-between; align-items: flex-start;">
+                        <div style="background:#f0f2f5; padding:8px 12px; border-radius:12px; margin-top:8px; font-size:0.9rem; display:flex; justify-content:space-between;">
                             <div>
-                                <b style="color:var(--o-blue, #007bff); cursor:pointer;" onclick="openUserProfile('${c.userId}')">${c.userName}:</b> 
+                                <b style="color:#007bff; cursor:pointer;" onclick="openUserProfile('${c.userId}')">${c.userName}:</b> 
                                 <span style="margin-left:5px;">${c.text}</span>
                             </div>
-                            ${isCommentOwner ? `<button onclick="deleteComment('${postId}', ${index})" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold; font-size:1.6rem; line-height:1;">×</button>` : ""}
+                            ${isCommentOwner ? `<button onclick="deleteComment('${postId}', ${index})" style="background:none; border:none; color:red; cursor:pointer;">×</button>` : ""}
                         </div>`;
                 });
             } else {
-                commentsHTML = `<p id="no-comment-${postId}" style="color:gray; font-size:0.8rem; text-align:center; margin-top:10px;">Yaanni hin jiru. Jalqabaa ta'i!</p>`;
+                commentsHTML = `<p id="no-comment-${postId}" style="color:gray; font-size:0.8rem; text-align:center; margin-top:10px;">Yaanni hin jiru.</p>`;
             }
+
             finalHTML += `
                 <div class="post-card" id="post-${postId}" style="background:#fff; border: 1px solid #eee; border-radius:15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -1543,35 +1561,37 @@ window.cancelMyUpload = () => {
                     <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
 
                     <div style="display:flex; justify-content:space-around; margin-bottom:10px;">
-    <button onclick="likePost('${postId}')" style="background:none; border:none; cursor:pointer; font-weight:600; color:#555; display:flex; align-items:center; gap:5px; white-space: nowrap;">
-        ❤️ (<span id="like-count-${postId}">${p.likes || 0}</span>)
-    </button>
-
-    <button onclick="toggleCommentBox('${postId}')" style="background:none; border:none; cursor:pointer; font-weight:600; color:#555; display:flex; align-items:center; gap:5px; white-space: nowrap;">
-        💬 (<span id="comment-count-${postId}">${p.commentsCount || 0}</span>)
-    </button>
-
-    <button onclick="sharePost('${postId}')" style="background:none; border:none; cursor:pointer; font-weight:600; color:#555; display:flex; align-items:center; gap:5px; white-space: nowrap;">
-        🚀 (<span id="share-count-${postId}">${p.sharesCount || 0}</span>)
-    </button>
-</div>
+                        <button onclick="likePost('${postId}')" style="background:none; border:none; cursor:pointer; color:#555; display:flex; align-items:center; gap:5px;">
+                            ❤️ (<span id="like-count-${postId}">${p.likes || 0}</span>)
+                        </button>
+                        <button onclick="toggleCommentBox('${postId}')" style="background:none; border:none; cursor:pointer; color:#555; display:flex; align-items:center; gap:5px;">
+                           💬 (<span id="comment-count-${postId}">${p.comments ? p.comments.length: 0}</span>)
+                        </button>
+                        <button onclick="sharePost('${postId}')" style="background:none; border:none; cursor:pointer; color:#555; display:flex; align-items:center; gap:5px;">
+                            🚀
+                        </button>
+                    </div>
 
                     <div id="comment-section-${postId}" style="display:none; border-top:1px solid #f9f9f9; padding-top:10px;">
-                        <div id="comments-list-${postId}" style="max-height: 250px; overflow-y: auto; padding-right:5px;">
+                        <div id="comments-list-${postId}" style="max-height: 250px; overflow-y: auto;">
                             ${commentsHTML}
                         </div>
-                        <div style="display:flex; gap:8px; margin-top:12px; align-items:center;">
-                            <input type="text" id="input-${postId}" placeholder="Yaada kee barreessi..." style="flex:1; padding:10px 15px; border-radius:25px; border:1px solid #ddd; outline:none; font-size:0.9rem;">
-                            <button onclick="addComment('${postId}')" style="background:#007bff; color:white; border:none; border-radius:50%; width:40px; height:40px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.3s;">
-                                <span style="transform: rotate(45deg); font-size:1.2rem; margin-bottom:3px; margin-left:3px;">✈️</span>
-                            </button>
+                        <div style="display:flex; gap:8px; margin-top:12px;">
+                            <input type="text" id="input-${postId}" placeholder="Yaada barreessi..." style="flex:1; padding:10px; border-radius:20px; border:1px solid #ddd; outline:none;">
+                            <button onclick="addComment('${postId}')" style="background:#007bff; color:white; border:none; border-radius:50%; width:40px; height:40px; cursor:pointer;">✈️</button>
                         </div>
                     </div>
                 </div>`;
         }
     });
-    cont.innerHTML = finalHTML;
-}
+
+    if (isAppend) {
+        cont.innerHTML += finalHTML;
+    } else {
+        cont.innerHTML = finalHTML;
+    }
+};
+
    window.likePost = async (postId) => {
     const user = auth.currentUser;
     if (!user) return alert("Dura galuu qabdu!");
@@ -1636,6 +1656,11 @@ window.cancelMyUpload = () => {
             text: text,
             time: serverTimestamp()
         });
+                const countSpan = document.getElementById(`comment-count-${postId}`);
+        if (countSpan) {
+            let currentCount = parseInt(countSpan.innerText) || 0;
+            countSpan.innerText = currentCount + 1;
+        }
         input.value = "";
     } catch (err) {
         console.error("Comment Error:", err);
@@ -2354,6 +2379,34 @@ window.onscroll = () => {
         }
     }
 };
+window.submitNewAd = async () => {
+    const adText = document.getElementById('ad-text-input').value;
+    const adLink = document.getElementById('ad-link-input').value;
+    const adImage = document.getElementById('ad-image-file').files[0];
+    const advertiserUid = auth.currentUser.uid;
+
+    try {
+        let imageUrl = "";
+        if (adImage) {
+            const storageRef = ref(storage, `ads/${Date.now()}_${adImage.name}`);
+            const uploadTask = await uploadBytes(storageRef, adImage);
+            imageUrl = await getDownloadURL(uploadTask.ref);
+        }
+
+        await addDoc(collection(db, "ads"), {
+            advertiserId: advertiserUid,
+            text: adText,
+            link: adLink,
+            mediaUrl: imageUrl,
+            isAd: true,
+            status: "pending",
+            createdAt: serverTimestamp()
+        });
+        alert("Beeksisni keessan galmaa'eera! Erga mirkanaa'ee booda ni mul'ata.");
+    } catch (err) {
+        console.error("Ad Error:", err);
+    }
+};
     </script>
 </body>
-</html>
+    </html>
