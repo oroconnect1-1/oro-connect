@@ -30,16 +30,21 @@ jobs:
       - name: Initialize Capacitor and Android
         run: |
           # Folder 'android' yoo hin jiraanne ofumaan uuma
-          npx cap init "ORO-CONNECT" "com.oroconnect.app" --web-dir www
-          npx cap add android
+          if [ ! -d "android" ]; then
+            npx cap init "ORO-CONNECT" "com.oroconnect.app" --web-dir www
+            npx cap add android
+          fi
 
       - name: Generate App Icons
         run: |
           # Folder assets uumee fakkii www/icon.png keessa kaaya
           mkdir -p assets
-          cp www/icon.png assets/icon.png
-          # Meeshaan kun ofumaan folder assets/icon.png irraa dubbisa
-          npx capacitor-assets generate --android
+          if [ -f "www/icon.png" ]; then
+            cp www/icon.png assets/icon.png
+            npx capacitor-assets generate --android
+          else
+            echo "Icon file not found, skipping icon generation."
+          fi
 
       - name: Sync Capacitor
         run: npx cap sync android
@@ -49,10 +54,9 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
-      - name: Upload APK
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ORO-CONNECT-APK
-          path: my-app/android/app/build/outputs/apk/debug/app-debug.apk
-
-
+          path: android/app/build/outputs/apk/debug/app-debug.apk
