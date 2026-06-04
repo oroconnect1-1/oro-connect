@@ -1,0 +1,40 @@
+{
+  "name": "ORO-CONNECT Social Platform",
+  "short_name": "ORO-CONNECT",
+  "description": "Hawaasa Oromoo walitti fiduuf kan qophaa'e miidiyaa hawaasaa haaraa.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#da291c",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Odaa_tree.png/192px-Odaa_tree.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Odaa_tree.png/512px-Odaa_tree.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Maxxansa Haaraa",
+      "url": "/#home-section",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/1160/1160138.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Ergaa",
+      "url": "/#messages-section",
+      "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/542/542638.png", "sizes": "192x192" }]
+    }
+  ],
+  "categories": ["social", "communication"],
+  "lang": "om-ET"
+}
+
