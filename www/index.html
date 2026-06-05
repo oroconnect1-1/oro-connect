@@ -997,9 +997,6 @@ style="background:none; border:none; color:cyan; font-size:32px; cursor:pointer;
     </div>
 </div>
 
-<!-- ========================================== -->
-<!-- 3. PRIVACY POLICY & EULA MODAL -->
-<!-- ========================================== -->
 <div id="privacy-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);">
     <div style="display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;">
         <div class="modal-content" style="background: var(--card-bg); color: var(--text-main); border-radius: 16px; padding: 25px; box-shadow: var(--shadow); max-width: 550px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; font-family: inherit;">
@@ -1219,7 +1216,12 @@ async function setupNotifications(userUid) {
         const permission = await window.Notification.requestPermission();
         console.log("Hayyama Notification:", permission);
         if (permission === 'granted') {
+            // Service Worker duraan galmeeffame qophaa'ee jiraachuu isaa mirkaneessuuf
+            const registration = await navigator.serviceWorker.ready;
+
+            // getToken keessatti serviceWorkerRegistration dabalanii pass gochuudha
             const token = await getToken(messaging, { 
+                serviceWorkerRegistration: registration, // Kun dillee DOMException sun balleessa
                 vapidKey: 'BOl-cfOnHFTUj-fCbd9M5K6-KPn3yFca5W3tm_VPqJsL0ZU8nr2S-U6Nwa1q2mfeF4ma1Z0NIk23XEIXJgcNjug' 
             });
 
@@ -1317,8 +1319,7 @@ window.initChatListener = function(chatId) {
         }
     });
 };
-const appID = 1972575072;
-const serverSecret = "8b23c8a854137e29db939d03963e80d9";
+
 async function getZegoSecret() {
     try {
         const secretDoc = await getDoc(doc(db, "secrets", "zegocloud"));
@@ -1335,11 +1336,12 @@ async function getZegoSecret() {
 }
 window.startVideoCall = async (targetUserID) => {
     const container = document.getElementById('video-call-container');
+    if (!container) return;
     container.style.display = 'block';
-
-    const roomID = [auth.currentUser.uid, targetUserID].sort().join("_");
+    const appID = 1972575072; 
     const userID = auth.currentUser.uid;
-    const userName = auth.currentUser.displayName || "User_" + userID.slice(0,4);
+    const roomID = [userID, targetUserID].sort().join("_");
+    const userName = auth.currentUser.displayName || "User_" + userID.slice(0, 4);
     const serverSecret = await getZegoSecret();
     
     if (!serverSecret) {
@@ -1347,19 +1349,26 @@ window.startVideoCall = async (targetUserID) => {
         container.style.display = 'none';
         return;
     }
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
 
-    const zp = ZegoUIKitPrebuilt.create(kitToken);
-    zp.joinRoom({
-        container: container,
-        scenario: {
-            mode: ZegoUIKitPrebuilt.OneONoneCall,
-        },
-        showPreJoinView: false,
-        onLeaveRoom: () => {
-            container.style.display = 'none';
-        }
-    });
+    try {
+        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+        const zp = ZegoUIKitPrebuilt.create(kitToken);
+        
+        zp.joinRoom({
+            container: container,
+            scenario: {
+                mode: ZegoUIKitPrebuilt.OneONoneCall,
+            },
+            showPreJoinView: false,
+            onLeaveRoom: () => {
+                container.style.display = 'none';
+            }
+        });
+    } catch (error) {
+        console.error("ZegoCloud Join Room Error:", error);
+        alert("Waamichi jalqabamuu hin dandeenye.");
+        container.style.display = 'none';
+    }
 };
 
 window.setTypingStatus = async function(chatId, status) {
